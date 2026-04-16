@@ -1,0 +1,83 @@
+Algorithm Description:
+1- First we need to add the inputs data variables.
+2- We need to know the count of words inside the array including the length of word and how output will be and what is the max number of length of words.
+3- We need to loop through the strings of the input to check if it's containing a words that is same as what inside the array and its size is the totalLength of whole words in the array.
+4- After that we will create a string variable that stores the substring which we have get from the totalLength.
+5- Then we create a new list of words to compare it with the substring
+6- We create a boolean variable which distinguish if substring is matching our words array, and we keep it true initially.
+7- We create a loop to go through the substring and after that it check each wordLength in the wordList and if it exist it remove it from the word variable.
+8- Finally if the loops finished it will decide if the words which we have check it is valid or not.
+
+
+
+BEGIN
+
+	INPUT string s equal to "barfoothefoobarman"
+	INPUT string words Array [] equal to {"foo","bar"}
+
+	INTEGER wordLength equal to first string length
+	INTEGER wordCount equal to words length
+	INTEGER totalLength equal to wordLength * wordCount
+	
+	FOR INTEGER i from 0 to length(s) - totalLength with Increment:
+		STRING subString equal s from i to i + totalLength
+		wordList equal new Array List of words
+		isValid equal TRUE
+		
+		FOR INTEGER j from 0 to length(subString) step wordLength:
+			STRING word equal subString starting from  j to j + wordLength
+			IF word is in wordList:
+				remove word from wordList
+			ELSE:
+				isValid equal FALSE
+				BREAK
+			END IF
+		END FOR
+		
+		IF isValid:
+			PRINT "Valid substring found at index: " + i
+		END IF
+		
+	END FOR
+	
+END		
+
+-------------------------------------------------------------------------------------
+
+Java Code:
+
+import java.util.List;
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        String s = "barfoothefoobarman";
+        String[] words = {"foo","bar"};
+
+        int wordLength = words[0].length();
+        int wordCount = words.length;
+        int totalLength = wordLength * wordCount;
+
+
+        for (int i = 0; i <= s.length() - totalLength; i++){
+            String substring = s.substring(i, i + totalLength);
+            List<String> wordList = new ArrayList<>(List.of(words));
+            boolean isValid = true;
+
+            for (int j = 0; j < substring.length(); j += wordLength){
+                String word = substring.substring(j, j + wordLength);
+                if (wordList.contains(word)){
+                    wordList.remove(word);
+                } else {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            if (isValid){
+                System.out.println("Valid substring found at index: " + i);
+            }
+        }
+    }
+}
+
